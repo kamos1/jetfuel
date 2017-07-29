@@ -1,26 +1,10 @@
-body {
-  background: url('https://c1.staticflickr.com/9/8105/8690313402_e5298b34c4_b.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+body, .main, .name, .link-list, .link-inputs {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-}
-
-
-.main, .name, .link-list, .link-inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #7ec0ee;
   font-family: 'Open Sans', sans-serif;
-  background-color: #ffffff;
-  opacity: 0.9;
-  padding: 3px;
 }
-
 
 header {
   text-align: center;
@@ -31,8 +15,6 @@ header {
   margin: 2% 10%;
   padding: 1%;
   text-align: center;
-  background-color: #ffffff;
-  opacity: 0.6;
 }
 
 .main-text {
@@ -45,7 +27,7 @@ img {
 }
 
 h1 {
-  color: #100254;
+  color: #3f6077;
   font-family: 'Roboto Slab', serif;
   font-size: 3em;
 }
@@ -63,21 +45,21 @@ p{
   padding: 2px 5px;
 }
 
-.sort-btn {
-  border: 1px solid black;
-  background: #fff;
-  color: #100254;
-}
-
 input[type=submit] {
-  border: 1px solid black;
-  background: #fff;
-  color: #100254;
+  padding: 5px 10px;
+  border: none;
+  background: #19262f;
+  color: #FFF;
+  margin: 10px;
+  font-size: 20px;
+  border-radius: 10px;
 }
 
-input[type=submit]:hover, input[type=submit]:active {
+input[type=submit]:hover {
   background: #ffff00;
   color: #19262f;
+  font-size: 20px;
+  border-radius: 10px;
 }
 
 input {
@@ -85,25 +67,30 @@ input {
 }
 
 .folder-button {
-  margin-bottom: 8px;
-  font-size: 1em;
+  margin-bottom: 10px;
+  font-size: 1.5em;
   background: #7ec0ee;
   font-family: 'Open Sans', sans-serif;
   border: 3px solid #3f6077;
   color: #3f6077;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  max-width: 140px;
-  min-width: 140px;
+  max-width: 180px;
+  min-width: 180px;
   border-radius: 10px;
 }
 
-.folder-button:hover, .selected {
+.folder-button:hover {
   border: 3px solid #ffff00;
   color: #ffff00;
 }
 
 .sort-btn-container {
+  margin-bottom: 30px
+}
+
+.sort-btn {
+  display: block;
 }
 
 .link-list {
@@ -111,21 +98,10 @@ input {
   border: 3px solid white;
   border-radius: 10px;
   background: #fff;
-  border: 1px solid black;
-}
-
-.link-list p {
-  margin: 5px;
 }
 
 .link-text {
   font-size: 20px;
-}
-
-.top-line {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 }
 
 

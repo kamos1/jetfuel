@@ -1,43 +1,3 @@
-$(document).ready(() => {
-  receiveFolders()
-})
-
-$('#button').on('click', () => {
-  if($('#folder-name').val()){
-    $('.display-area').empty()
-    createFolder()
-  }
-})
-
-$('.display-area').on('click', '.folder-button', function() {
-  const element = this;
-  displayFolderContents(element)
-  $(this).toggleClass('selected')
-})
-
-$('.display-area').on('click', '#link-submit-button', function() {
-  $('.link-display').empty()
-  const folderId = $(this).closest('.name').attr('id')
-  const element = $(this).parent().parent();
-  createLink(folderId, element)
-})
-
-$('.display-area').on('click', '#sort-most-pop', function() {
-  const folderId = $(this).closest('.name').attr('id')
-  const element = $(this).parents('.link-inputs').parents('.inputs');
-  $('.link-display').empty();
-
-  sortByTheMost(folderId, element)
-})
-
-$('.display-area').on('click', '#sort-least-pop', function() {
-  const folderId = $(this).closest('.name').attr('id')
-  const element = $(this).parents('.link-inputs').parents('.inputs');
-  $('.link-display').empty();
-
-  sortByTheLeast(folderId, element)
-})
-
 const receiveFolders = () => {
   fetch('/api/v1/folders')
   .then(response => response.json())
@@ -52,7 +12,6 @@ const receiveFolders = () => {
     });
   };
 
-
 const displayFolderContents = (element) => {
   const folderId = $(element).closest('.name').attr('id');
 
@@ -64,9 +23,9 @@ const displayFolderContents = (element) => {
         <input id="${folderId}-url-title" type="text" placeholder="enter url title">
         <input id="url" type="text" placeholder="enter url">
         <input id="link-submit-button" type="submit" value='Submit'>
-        <div class='sort-btn-container'> <span>Sort By Popularity:</span>
-          <input class='sort-btn' id="sort-most-pop" type="submit" value='Most'>
-          <input class='sort-btn' id="sort-least-pop" type="submit" value='Least'>
+        <div class='sort-btn-container'>
+          <input class='sort-btn' id="sort-most-pop" type="submit" value='Sort By Most Popular'>
+          <input class='sort-btn' id="sort-least-pop" type="submit" value='Sort By Least Popular'>
         </div>
       </div>
     `);
@@ -166,8 +125,8 @@ const appendLinks = (location, link) => {
 
   element.append(`
     <div class='link-list'>
-      <div class='top-line'><p class='link-text'>Title: ${link.title}</p>
-      <p class='link-text clicks'>Clicks: ${link.clicks}</p></div>
+      <p class='link-text'>Title: ${link.title}</p>
+      <p class='link-text clicks'>Clicks: ${link.clicks}</p>
       <a class='link-text' href=/click/${link.short_url}>${link.short_url}</a>
       <p class="link-text">Date Created: ${new Date(link.created_at).toLocaleString()}</p>
     </div>
@@ -234,4 +193,55 @@ const sortByTheLeast = (folderId, element) => {
     }
   });
 };
+
+$(document).ready(() => {
+  receiveFolders();
+});
+
+$('#button').on('click', () => {
+  if($('#folder-name').val()){
+    $('.display-area').empty();
+    createFolder();
+  }
+});
+
+$('.display-area').on('click', '.folder-button', function() {
+  const element = this;
+  displayFolderContents(element);
+});
+
+$('.display-area').on('click', '#link-submit-button', function() {
+  $('.link-display').empty();
+  const folderId = $(this).closest('.name').attr('id');
+  const element = $(this).parent().parent();
+  createLink(folderId, element);
+});
+
+$('.display-area').on('click', '#sort-most-pop', function() {
+  const folderId = $(this).closest('.name').attr('id');
+  const element = $(this).parents('.link-inputs').parents('.inputs');
+  $('.link-display').empty();
+
+  sortByTheMost(folderId, element);
+});
+
+$('.display-area').on('click', '#sort-least-pop', function() {
+  const folderId = $(this).closest('.name').attr('id');
+  const element = $(this).parents('.link-inputs').parents('.inputs');
+  $('.link-display').empty();
+
+  sortByTheLeast(folderId, element);
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () =>{
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(registration => {
+        console.log('reg', registration);
+      })
+      .catch(error => {
+        console.log('Failure');
+      });
+  });
+}
 
